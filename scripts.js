@@ -41,7 +41,15 @@ oReq.onload = function(e)
 		// button that activates modal
 		const button = document.createElement('button');
 		button.setAttribute('class', 'trigger');
-		button.textContent = cartoon.Title;
+		//button.textContent = cartoon.Title;
+		
+		// set the image as the button's background
+		// first, check if the image field on the Excel file is filled
+		// also check if the image url exists on the Internet
+		// if no image found, defaults to gradient background
+		var image = cartoon.Image;
+		if(image != null && imageExists("url('"+ image +"')"))
+			button.style.backgroundImage = "url('"+ image +"')";
 		
 		// main modal
 		const modal = document.createElement('div');
@@ -63,17 +71,40 @@ oReq.onload = function(e)
 		
 		const describe = document.createElement('p');
 		describe.textContent = cartoon.Description;
-
+		
+		const airtime = document.createElement('p');
+		// use different formats if show is still airing
+		if(cartoon.EndYear == null)
+			airtime.textContent = 'Airtime: ' + cartoon.StartYear + " - Present";
+		else
+			airtime.textContent = 'Airtime: ' + cartoon.StartYear + " - " + cartoon.EndYear;
+		
+		const genre = document.createElement('p');
+		genre.textContent = 'Genre: ' + cartoon.Genre;
+		
+		const seasons = document.createElement('p');
+		seasons.textContent = 'Number of Seasons: ' + cartoon.Seasons;
+		
+		const episodes = document.createElement('p');
+		episodes.textContent = 'Number of Episodes: ' + cartoon.Episodes;
+		
+		const network = document.createElement('p');
+		network.textContent = 'Network: ' + cartoon.Network;
+		
 		// add modal to page
 		container.appendChild(button);
 		container.appendChild(modal);
 		modal.appendChild(content);
+		content.appendChild(close);
 		
 		// add information to modal
-		content.appendChild(close);
 		content.appendChild(title);
 		content.appendChild(create);
 		content.appendChild(describe);
+		content.appendChild(airtime);
+		content.appendChild(genre);
+		content.appendChild(seasons);
+		content.appendChild(episodes);
 	});
 
 	// acquire all modals
@@ -113,6 +144,16 @@ oReq.onload = function(e)
 			modals[i].classList.toggle("show-modal");	// should turn off modal
 		})
 	}
+}
+
+// function to check if an image exists on the web
+function imageExists(image_url)
+{ 
+	var http = new XMLHttpRequest();
+	http.open("HEAD", image_url, true);
+	http.send();
+
+	return http.status < 400;
 }
 
 oReq.send();
