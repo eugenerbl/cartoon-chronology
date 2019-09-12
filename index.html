@@ -15,9 +15,32 @@
 </head>
 
 <body>
+	<h1>Cartoon Chronology</h1>
+	
+	<p class="info">Images come from imdb.com. Information comes from imdb.com and Wikipedia.</p>
+	
+	<!-- Search for a show -->
+	<input type="text" id="myInput" onkeyup="searchShows()" placeholder="Search for shows..">
+	
+	<!-- Search for shows from a specific network -->
+	<div class="dropdown">
+		<button onclick="dropDownMenu()" class="dropbtn" id="networkSelect">Network</button>
+		<div id="myDropdown" class="dropdown-content">
+			<p onclick="selected()">none</p>
+			<p onclick="selected()">Disney Channel</p>
+			<p onclick="selected()">Disney XD</p>
+			<p onclick="selected()">Nickelodeon</p>
+			<p onclick="selected()">Cartoon Network</p>
+		</div>
+	</div>
+	
   <div id="root"></div>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
 	<script src="scripts.js"></script>
+	<script src="filter.js"></script>
+	
+	<div class="footer">
+	<p>Created 2019 by Eugene Lucino</p></div>
 </body>
 
 </html>

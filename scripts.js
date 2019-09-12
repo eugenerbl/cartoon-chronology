@@ -1,12 +1,7 @@
 const app = document.getElementById('root');
 
-const logo = document.createElement('h2');
-logo.textContent = 'Cartoon Chronology';
-
 const container = document.createElement('div');
 container.setAttribute('class', 'container');
-
-app.appendChild(logo);
 app.appendChild(container);
 
 // XMLHttpRequest to retrieve Excel file
@@ -41,15 +36,17 @@ oReq.onload = function(e)
 		// button that activates modal
 		const button = document.createElement('button');
 		button.setAttribute('class', 'trigger');
-		//button.textContent = cartoon.Title;
+		button.alt = cartoon.Title;
 		
 		// set the image as the button's background
 		// first, check if the image field on the Excel file is filled
 		// also check if the image url exists on the Internet
-		// if no image found, defaults to gradient background
+		// if no image found, defaults to gradient background and title
 		var image = cartoon.Image;
 		if(image != null && imageExists("url('"+ image +"')"))
 			button.style.backgroundImage = "url('"+ image +"')";
+		else
+			button.textContent = cartoon.Title;
 		
 		// main modal
 		const modal = document.createElement('div');
@@ -63,16 +60,20 @@ oReq.onload = function(e)
 		close.textContent = '×';
 		
 		// various information seen from json
-		const title = document.createElement('h1');
+		const title = document.createElement('h2');
+		title.setAttribute('class', 'title');
 		title.textContent = cartoon.Title;
-
+		
 		const create = document.createElement('p');
+		create.setAttribute('class', 'creator');
 		create.textContent = 'Created by: ' + cartoon.Creator;
 		
 		const describe = document.createElement('p');
+		describe.setAttribute('class', 'description');
 		describe.textContent = cartoon.Description;
 		
 		const airtime = document.createElement('p');
+		airtime.setAttribute('class', 'airtime');
 		// use different formats if show is still airing
 		if(cartoon.EndYear == null)
 			airtime.textContent = 'Airtime: ' + cartoon.StartYear + " - Present";
@@ -80,15 +81,19 @@ oReq.onload = function(e)
 			airtime.textContent = 'Airtime: ' + cartoon.StartYear + " - " + cartoon.EndYear;
 		
 		const genre = document.createElement('p');
+		genre.setAttribute('class', 'genre');
 		genre.textContent = 'Genre: ' + cartoon.Genre;
 		
 		const seasons = document.createElement('p');
+		seasons.setAttribute('class', 'seasons');
 		seasons.textContent = 'Number of Seasons: ' + cartoon.Seasons;
 		
 		const episodes = document.createElement('p');
+		episodes.setAttribute('class', 'episodes');
 		episodes.textContent = 'Number of Episodes: ' + cartoon.Episodes;
 		
 		const network = document.createElement('p');
+		network.setAttribute('class', 'network');
 		network.textContent = 'Network: ' + cartoon.Network;
 		
 		// add modal to page
@@ -105,6 +110,7 @@ oReq.onload = function(e)
 		content.appendChild(genre);
 		content.appendChild(seasons);
 		content.appendChild(episodes);
+		content.appendChild(network);
 	});
 
 	// acquire all modals
@@ -152,8 +158,7 @@ function imageExists(image_url)
 	var http = new XMLHttpRequest();
 	http.open("HEAD", image_url, true);
 	http.send();
-
 	return http.status < 400;
 }
 
-oReq.send();
+oReq.send();		// send request
