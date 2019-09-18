@@ -17,30 +17,49 @@
 <body>
 	<h1>Cartoon Chronology</h1>
 	
+	<p class="info">The animated shows featured on this page have had some influence
+		on my life and have grown to become my favorite shows of all time. Get to know
+		what kind of person I am by the shows I've watched over the years!</p>
 	<p class="info">Images come from imdb.com. Information comes from imdb.com and Wikipedia.</p>
 	
-	<!-- Search for a show -->
-	<input type="text" id="myInput" onkeyup="searchShows()" placeholder="Search for shows..">
+	<!-- Search for a show by title -->
+	<input type="text" id="myInput" onkeyup="searchShows()" placeholder="Search for shows...">
 	
-	<!-- Search for shows from a specific network -->
-	<div class="dropdown">
-		<button onclick="dropDownMenu()" class="dropbtn" id="networkSelect">Network</button>
-		<div id="myDropdown" class="dropdown-content">
-			<p onclick="selected()">none</p>
-			<p onclick="selected()">Disney Channel</p>
-			<p onclick="selected()">Disney XD</p>
-			<p onclick="selected()">Nickelodeon</p>
-			<p onclick="selected()">Cartoon Network</p>
+	<!-- Menu of sorting buttons -->
+	<div class="sortButtons">
+		<!-- Search for shows with a specific genre -->
+		<div class="dropdown">
+			<button onclick="dropDown(1)" class="dropbtn" id="genreSelect">Genre</button>
+				<div id="dropGenre" class="dropdown-content">
+					<div id="fillGenres"></div>
+				</div>
+		</div>
+		
+		<!-- Search for shows from a specific network -->
+		<div class="dropdown">
+			<button onclick="dropDown(2)" class="dropbtn" id="networkSelect">Network</button>
+			<div id="dropNetwork" class="dropdown-content">
+				<div id="fillNetworks"></div>
+			</div>
+		</div>
+		
+		<!-- Reset all filters -->
+		<div class="dropdown">
+			<button onclick="makeDecision(0, 3)" class="dropbtn" id="resetbtn">Reset Filters</button>
 		</div>
 	</div>
 	
+	<!-- Creation of shows and modals -->
   <div id="root"></div>
+	
+	<!-- JavaScript for Excel functions, creating modals, filters, and dropdowns -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
 	<script src="scripts.js"></script>
 	<script src="filter.js"></script>
 	
 	<div class="footer">
-	<p>Created 2019 by Eugene Lucino</p></div>
+		<p>Created 2019 by Eugene Lucino</p>
+	</div>
 </body>
 
 </html>

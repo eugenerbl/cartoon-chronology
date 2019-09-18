@@ -2,6 +2,7 @@ const app = document.getElementById('root');
 
 const container = document.createElement('div');
 container.setAttribute('class', 'container');
+container.setAttribute('id', 'cartoons');
 app.appendChild(container);
 
 // XMLHttpRequest to retrieve Excel file
@@ -59,6 +60,13 @@ oReq.onload = function(e)
 		close.setAttribute('class', 'close-button');
 		close.textContent = '×';
 		
+		// add modal to page
+		container.appendChild(button);
+		container.appendChild(modal);
+		modal.appendChild(content);
+		content.appendChild(close);
+		
+		
 		// various information seen from json
 		const title = document.createElement('h2');
 		title.setAttribute('class', 'title');
@@ -95,12 +103,6 @@ oReq.onload = function(e)
 		const network = document.createElement('p');
 		network.setAttribute('class', 'network');
 		network.textContent = 'Network: ' + cartoon.Network;
-		
-		// add modal to page
-		container.appendChild(button);
-		container.appendChild(modal);
-		modal.appendChild(content);
-		content.appendChild(close);
 		
 		// add information to modal
 		content.appendChild(title);
@@ -152,7 +154,7 @@ oReq.onload = function(e)
 	}
 }
 
-// function to check if an image exists on the web
+// function to check if an image exists on the internet
 function imageExists(image_url)
 { 
 	var http = new XMLHttpRequest();
