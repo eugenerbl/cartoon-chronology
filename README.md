@@ -19,3 +19,6 @@ Each cartoon is represented by its own modal. Data from each cartoon comes from 
   - [SheetJS js-xlsx](https://github.com/SheetJS/js-xlsx) (to parse Excel files)
 - HTML
 - CSS
+
+#### Original Template Credit
+The original framework for Cartoon Chronology stemmed from this [Studio Ghibli App](https://github.com/taniarascia/sandbox/tree/master/ghibli) by [taniarascia](https://github.com/taniarascia).
