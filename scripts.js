@@ -71,6 +71,27 @@ oReq.onload = function(e)
 		const title = document.createElement('h2');
 		title.setAttribute('class', 'title');
 		title.textContent = cartoon.Title;
+		content.appendChild(title);
+		
+		// the official show trailer
+		var trailer = cartoon.Trailer;
+		// first, check if there is a trailer that exists online
+		if(trailer != null && imageExists("url('"+ trailer +"')"))
+		{
+			// create a button link to the trailer
+			const trailerDiv = document.createElement('div');
+			const trailerLink = document.createElement('a');
+			const trailerButton = document.createElement('button');
+			
+			trailerDiv.setAttribute('class', 'sortButtons');
+			trailerLink.setAttribute('href', trailer);
+			trailerButton.setAttribute('class', 'dropbtn');
+			trailerButton.textContent = 'Watch Trailer';
+			
+			content.appendChild(trailerDiv);
+			trailerDiv.appendChild(trailerLink);
+			trailerLink.appendChild(trailerButton);
+		}
 		
 		const create = document.createElement('p');
 		create.setAttribute('class', 'creator');
@@ -105,7 +126,6 @@ oReq.onload = function(e)
 		network.textContent = 'Network: ' + cartoon.Network;
 		
 		// add information to modal
-		content.appendChild(title);
 		content.appendChild(create);
 		content.appendChild(describe);
 		content.appendChild(airtime);

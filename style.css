@@ -1,11 +1,7 @@
 /* CSS Stylesheet for Cartoon Chronology
-   Color Scheme Ideas:
-		#00C2FF  Deep Sky Blue
-		#B80C09  International Orange
-		#BCE7FD  Diamond
-		#16C172  Crayola Green
-		#247BA0  Lapis Lazuli
-		#E8F1F2  Anti-Flash White
+   Color Scheme:
+		#EFF1F3  Anti-Flash White
+		#20397C  St. Patrick's Blue
 */
 
 * { box-sizing: border-box }
@@ -15,8 +11,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Comfortaa', cursive;
   line-height: 1.6;
-  color: #666;
-  background: #F6F6F6;
+  color: black;
+  background: #EFF1F3;
 }
 
 #root {
@@ -27,6 +23,7 @@ html {
 h1 {
 	font-size: 3rem;
 	margin: 0 0 1rem 0;
+	color: #20397C;
 }
 
 h2 {
@@ -54,7 +51,6 @@ p {
 }
 
 .info {
-	padding: 0 8rem 2rem;
 	text-align: center;
 }
 

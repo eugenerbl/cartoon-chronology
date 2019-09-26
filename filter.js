@@ -97,15 +97,16 @@ function selectGenre(chosen)
   }
 }
 
-// filters the shows based on the network(s) they are shown on
+// filters all shows based on the selected genre and network
+// optG = index of genreList, optN = index of networkList
 function selection(optG, optN)
 {  
-	var input, filter, shows, networks, a, b, i;
+	var shows, genres, networks, a, b, i;
   var inputG = genreList[optG];
 	var inputN = networkList[optN];
 	
-  shows = document.getElementsByClassName("trigger");
-	genres = document.getElementsByClassName("genre");
+  shows    = document.getElementsByClassName("trigger");
+	genres   = document.getElementsByClassName("genre");
 	networks = document.getElementsByClassName("network");
 	
 	// change button's text based on what is selected
@@ -117,17 +118,20 @@ function selection(optG, optN)
 		document.getElementById("networkSelect").textContent = "Network";
 	else document.getElementById("networkSelect").textContent = inputN;
 	
-	// loop through all networks
+	// loop through all shows
   for (i = 0; i < shows.length; i++)
 	{
-		shows[i].style.display = "none";
+		shows[i].style.display = "none";	// hide show initially
 		a = genres[i].textContent;
-		b = networks[i].textContent;		// get networks
+		b = networks[i].textContent;
 		
+		// no input for network, check for genre
 		if (inputN === 'none' && (a.includes(inputG) || inputG === 'none'))
 			shows[i].style.display = "block";
+		// no input for genre, check for network
 		else if (inputG === 'none' && (b.includes(inputN) || inputN === 'none'))
 			shows[i].style.display = "block";
+		// both filters applied
 		else if (a.includes(inputG) && b.includes(inputN))
 			shows[i].style.display = "block";
   }
@@ -150,35 +154,23 @@ window.onclick = function(event)
 }
 
 
-var y=0, z=0;
-// fill out dropdown menus
+/* POPULATING DROPDOWN FILTERS */
+
+// mark current filter selections
+// y is an index from genreList, z is an index from networkList
+var y=0, z=0;	
+
+// fill genre filter
 const fillBox = document.getElementById('fillGenres');
-// fixed set of genres
 var genreList = ["none", "Action", "Adventure", "Comedy", "Fantasy", 
 		"Mystery", "Satire", "Science Fantasy", "Science Fiction"];
 
-		const fillBox2 = document.getElementById('fillNetworks');
-// fixed set of networks
+// fill network filter
+const fillBox2 = document.getElementById('fillNetworks');
 var networkList = ["none", "Disney Channel", "Disney XD", 
 		"Nickelodeon", "Cartoon Network"];
 
-/*for(var i = 0; i < genreList.length; i++)
-{
-	var opt = genreList[i];
-	var val = document.createElement("p");
-	val.setAttribute('onclick', 'makeDecision(' + i + ', 0)');
-	val.textContent = opt;
-	fillBox.appendChild(val);
-}*/
-/*for(var i = 0; i < networkList.length; i++)
-{
-	var opt = networkList[i];
-	var val = document.createElement("p");
-	val.setAttribute('onclick', 'makeDecision(' + i + ', 1)');
-	val.textContent = opt;
-	fillBox2.appendChild(val);
-}*/
-
+// create dropdown options
 fillBoxes(genreList, 0, fillBox);
 fillBoxes(networkList, 1, fillBox2);
 
@@ -188,20 +180,26 @@ function fillBoxes(lists, choice, box)
 	{
 		var opt = lists[i];
 		var val = document.createElement("p");
+		// pass the correct values to the combined filters
 		val.setAttribute('onclick', 'makeDecision(' + i + ', ' + choice + ')');
 		val.textContent = opt;
 		box.appendChild(val);
 	}
 }
 
+/* decides whether to filter the shows by genre, network, both, or neither
+	 first  - indicates which genre or network is selected 
+	 choice - which filter is being used: genre or network? */
 function makeDecision(first, choice)
 {
-	if(choice == 0) y=first;
-	else if(choice == 1) z=first;
+	if(choice == 0) y=first;				// change genre selection
+	else if(choice == 1) z=first;		// change network selection
 	else 
 	{
+		// choice == 2: reset all filters, including search bar
 		document.getElementById('myInput').value = "";
-		y=z=0;
+		y=z=0;	// defaults to none
 	}
+	// filters shows
 	selection(y, z);
 }
