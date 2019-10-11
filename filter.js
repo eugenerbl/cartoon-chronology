@@ -29,74 +29,6 @@ function dropDown(option)
 		document.getElementById("dropNetwork").classList.toggle("show");
 }
 
-// filters the shows based on the network(s) they are shown on
-function selectNetwork(chosen)
-{  
-	var input, filter, shows, networks, a, b, i;
-  input = event.target.textContent;
-  filter = input.toUpperCase();
-  shows = document.getElementsByClassName("trigger");
-	networks = document.getElementsByClassName("network");
-	genres = document.getElementsByClassName("genre");
-	
-	// change button's text based on what is selected
-	if(input === "none")
-		document.getElementById("networkSelect").textContent = "Network";
-	else document.getElementById("networkSelect").textContent = input;
-	
-	//document.getElementById("genreSelect").textContent = "Genre";
-	var preGenre = document.getElementById("genreSelect").textContent;
-	
-  // loop through all networks
-  for (i = 0; i < shows.length; i++)
-	{
-    a = networks[i].textContent;		// get networks
-		b = genres[i].textContent;
-		// show the cartoon when the network matches or the button is on 'none'
-    if (a.toUpperCase().includes(filter) || (input === 'none'))
-		{
-			if (b.includes(preGenre) || (preGenre === 'none'))
-				shows[i].style.display = "block";
-		}
-		else
-      shows[i].style.display = "none"; // hide if show is not on network
-  }
-}
-
-
-
-function selectGenre(chosen)
-{  
-	var input, filter, shows, genres, a, i;
-  input = event.target.textContent;
-  filter = input.toUpperCase();
-  shows = document.getElementsByClassName("trigger");
-	genres = document.getElementsByClassName("genre");
-	networks = document.getElementsByClassName("network");
-	
-	// change button's text based on what is selected
-	if(input === "none")
-		document.getElementById("genreSelect").textContent = "Genre";
-	else document.getElementById("genreSelect").textContent = input;
-	
-	var preNetwork = document.getElementById("networkSelect").textContent;
-	
-  // loop through all genres
-  for (i = 0; i < shows.length; i++)
-	{
-    a = genres[i].textContent;		// get genres
-		b = networks[i].textContent;
-		// show the cartoon when the genre matches or the button is on 'none'
-    if (a.toUpperCase().includes(filter) || (input === 'none'))
-		{
-			if (b.includes(preNetwork) || (preNetwork === 'none'))
-				shows[i].style.display = "block";
-		}
-    else
-      shows[i].style.display = "none";
-  }
-}
-
 // filters all shows based on the selected genre and network
 // optG = index of genreList, optN = index of networkList
 function selection(optG, optN)
@@ -163,7 +95,7 @@ var y=0, z=0;
 // fill genre filter
 const fillBox = document.getElementById('fillGenres');
 var genreList = ["none", "Action", "Adventure", "Comedy", "Fantasy", 
-		"Mystery", "Satire", "Science Fantasy", "Science Fiction"];
+		"Mystery", "Satire", "Science Fantasy", "Science Fiction", "Slapstick"];
 
 // fill network filter
 const fillBox2 = document.getElementById('fillNetworks');

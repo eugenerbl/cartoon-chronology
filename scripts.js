@@ -41,7 +41,7 @@ oReq.onload = function(e)
 		
 		// set the image as the button's background
 		// first, check if the image field on the Excel file is filled
-		// also check if the image url exists on the Internet
+		// also check if the image URL exists on the Internet
 		// if no image found, defaults to gradient background and title
 		var image = cartoon.Image;
 		if(image != null && imageExists("url('"+ image +"')"))
@@ -52,87 +52,49 @@ oReq.onload = function(e)
 		// main modal
 		const modal = document.createElement('div');
 		modal.setAttribute('class', 'modal');
-		// contains information
+		
+		// contains cartoon information
 		const content = document.createElement('div');
 		content.setAttribute('class', 'modal-content');
-		// close button
-		const close = document.createElement('span');
-		close.setAttribute('class', 'close-button');
-		close.textContent = '×';
 		
-		// add modal to page
+		// add button and modal to page
 		container.appendChild(button);
 		container.appendChild(modal);
-		modal.appendChild(content);
-		content.appendChild(close);
 		
+		// variables getting each piece of information
+		var tle = cartoon.Title, tra = cartoon.Trailer, cre = cartoon.Creator,
+				des = cartoon.Description, ats = cartoon.StartYear,
+				ate = cartoon.EndYear, gen = cartoon.Genre, sea = cartoon.Seasons,
+				epi = cartoon.Episodes, net = cartoon.Network;
+
+		// add HTML - close button and title
+		content.innerHTML = `
+			<span class="close-button">×</span>
+			<h2 class="title">${tle}</h2>
+		`;
 		
-		// various information seen from json
-		const title = document.createElement('h2');
-		title.setAttribute('class', 'title');
-		title.textContent = cartoon.Title;
-		content.appendChild(title);
-		
-		// the official show trailer
-		var trailer = cartoon.Trailer;
-		// first, check if there is a trailer that exists online
-		if(trailer != null && imageExists("url('"+ trailer +"')"))
+		// check if the show has a trailer that exists online
+		if(tra != null && imageExists("url('"+ tra +"')"))
 		{
-			// create a button link to the trailer
-			const trailerDiv = document.createElement('div');
-			const trailerLink = document.createElement('a');
-			const trailerButton = document.createElement('button');
-			
-			trailerDiv.setAttribute('class', 'sortButtons');
-			trailerLink.setAttribute('href', trailer);
-			trailerButton.setAttribute('class', 'dropbtn');
-			trailerButton.textContent = 'Watch Trailer';
-			
-			content.appendChild(trailerDiv);
-			trailerDiv.appendChild(trailerLink);
-			trailerLink.appendChild(trailerButton);
+			// if it does, add a link to watch the trailer
+			content.innerHTML += `
+				<div class="sortButtons">
+					<a href=${tra}><button class="dropbtn">Watch Trailer</button></a>
+				</div>
+			`;
 		}
 		
-		const create = document.createElement('p');
-		create.setAttribute('class', 'creator');
-		create.textContent = 'Created by: ' + cartoon.Creator;
+		content.innerHTML += `
+			<p class="creator">Created by: ${cre}</p>
+			<p class="description">${des}</p>
+			<p class="airtime">Airtime: ${ats} - ${ate}</p>
+			<p class="genre">Genre: ${gen}</p>
+			<p class="seasons">Number of Seasons: ${sea}</p>
+			<p class="episodes">Number of Episodes: ${epi}</p>
+			<p class="network">Network: ${net}</p>
+		`;
 		
-		const describe = document.createElement('p');
-		describe.setAttribute('class', 'description');
-		describe.textContent = cartoon.Description;
-		
-		const airtime = document.createElement('p');
-		airtime.setAttribute('class', 'airtime');
-		// use different formats if show is still airing
-		if(cartoon.EndYear == null)
-			airtime.textContent = 'Airtime: ' + cartoon.StartYear + " - Present";
-		else
-			airtime.textContent = 'Airtime: ' + cartoon.StartYear + " - " + cartoon.EndYear;
-		
-		const genre = document.createElement('p');
-		genre.setAttribute('class', 'genre');
-		genre.textContent = 'Genre: ' + cartoon.Genre;
-		
-		const seasons = document.createElement('p');
-		seasons.setAttribute('class', 'seasons');
-		seasons.textContent = 'Number of Seasons: ' + cartoon.Seasons;
-		
-		const episodes = document.createElement('p');
-		episodes.setAttribute('class', 'episodes');
-		episodes.textContent = 'Number of Episodes: ' + cartoon.Episodes;
-		
-		const network = document.createElement('p');
-		network.setAttribute('class', 'network');
-		network.textContent = 'Network: ' + cartoon.Network;
-		
-		// add information to modal
-		content.appendChild(create);
-		content.appendChild(describe);
-		content.appendChild(airtime);
-		content.appendChild(genre);
-		content.appendChild(seasons);
-		content.appendChild(episodes);
-		content.appendChild(network);
+		modal.appendChild(content);
 	});
 
 	// acquire all modals
